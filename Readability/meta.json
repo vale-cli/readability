@@ -1,4 +1,7 @@
 {
-  "feed": "https://github.com/errata-ai/Readability/releases.atom",
-  "vale_version": ">=3.23.0"
+  "feed": "https://github.com/vale-cli/readability/releases.atom",
+  "vale_version": ">=3.23.0",
+  "license_files": [
+    "LICENSE"
+  ]
 }

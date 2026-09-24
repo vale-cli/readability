@@ -52,4 +52,7 @@ one.
 
 ## Development
 
-`./test.sh` runs each rule's cases with `vale test --coverage`.
+`./test.sh` runs each rule's cases with `vale test --coverage`, then checks
+`fixtures/page.md` against the golden file in `testdata/` and requires its
+rewrite in `fixtures/clean/` to pass clean. `./test.sh -u` rewrites the
+golden file.
