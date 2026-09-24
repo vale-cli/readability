@@ -1,8 +1,20 @@
+# The Flesch–Kincaid grade level, per paragraph, so the grade lands on the paragraph that earned it
+# rather than on line one of the file.
 extends: metric
 message: "Try to keep the Flesch–Kincaid grade level (%s) below 8."
 link: https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests
-
-formula: |
-  (0.39 * (words / sentences)) + (11.8 * (syllables / words)) - 15.59
-
+level: warning
+scope: paragraph
+formula: round(flesch_kincaid, 2)
 condition: "> 8"
+
+tests:
+  - name: fires
+    input: |
+      Notwithstanding the aforementioned considerations, the organization's interdepartmental reorganization initiative necessitated comprehensive reevaluation of institutional methodologies, organizational infrastructures, and jurisdictional responsibilities.
+    want: |
+      1:1:Readability.FleschKincaid:Try to keep the Flesch–Kincaid grade level (41.77) below 8.
+  - name: clean
+    input: |
+      We changed how the teams work. Each team now owns one part of the product. It is a small change.
+    want: ""

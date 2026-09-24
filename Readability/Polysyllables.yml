@@ -1,0 +1,56 @@
+# The words behind a SMOG or Gunning fog score: each one of three or more
+# syllables. The scores say a paragraph reads hard; this says which words
+# made it so. Syllables are counted by vowel groups, with the silent e and
+# the -ed and -es endings taken off, which agrees with the scores' count on
+# nearly every word and errs on the long side for the rest.
+#
+# A suggestion, since a paragraph can carry a few. Turn it on while bringing
+# a score down, and off again after. See issue 8.
+extends: script
+message: "'%s' has three or more syllables. It counts toward the SMOG and Gunning fog scores."
+link: https://en.wikipedia.org/wiki/SMOG
+level: suggestion
+scope: paragraph
+script: |
+  text := import("text")
+
+  matches := []
+  for m in text.re_find(`[A-Za-z]+(?:'[A-Za-z]+)?`, scope, -1) {
+    w := text.to_lower(m[0].text)
+    if len(w) < 5 {
+      continue
+    }
+    groups := text.re_find(`[aeiouy]+`, w, -1)
+    n := groups == undefined ? 0 : len(groups)
+    if text.has_suffix(w, "e") && !text.has_suffix(w, "le") && !text.has_suffix(w, "ee") {
+      n--
+    }
+    if text.has_suffix(w, "ed") && !text.re_match(`[td]ed$`, w) {
+      n--
+    }
+    if text.has_suffix(w, "es") && !text.re_match(`[sxz]es$|[cs]hes$`, w) {
+      n--
+    }
+    if n >= 3 {
+      matches = append(matches, {begin: m[0].begin, end: m[0].end})
+    }
+  }
+
+tests:
+  - name: fires
+    input: |
+      Notwithstanding the considerations, the committee decided.
+    want: |
+      1:1:Readability.Polysyllables:'Notwithstanding' has three or more syllables. It counts toward the SMOG and Gunning fog scores.
+      1:21:Readability.Polysyllables:'considerations' has three or more syllables. It counts toward the SMOG and Gunning fog scores.
+      1:41:Readability.Polysyllables:'committee' has three or more syllables. It counts toward the SMOG and Gunning fog scores.
+      1:51:Readability.Polysyllables:'decided' has three or more syllables. It counts toward the SMOG and Gunning fog scores.
+  - name: clean
+    input: |
+      The dog sat on the mat and looked at the door.
+    want: ""
+  - name: endings
+    about: "a silent e, a -ed, and an -es do not add a syllable: these are two"
+    input: |
+      They jumped and wished for houses and a table.
+    want: ""

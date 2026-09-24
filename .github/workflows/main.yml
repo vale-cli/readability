@@ -1,0 +1,41 @@
+name: Build + Test
+
+on: [push, pull_request]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - run: cp LICENSE Readability/
+      - run: zip -r Readability.zip Readability -x "*.DS_Store"
+      - name: Upload style to release
+        uses: svenstaro/upload-release-action@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: Readability.zip
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # The package needs Vale 3.23.0, which is on the v3 branch and not yet
+      # released -- built from source until it is.
+      - uses: actions/checkout@v4
+        with:
+          repository: vale-cli/vale
+          ref: v3
+          path: vale-src
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: vale-src/go.mod
+      - run: |
+          go build -o "$RUNNER_TEMP/bin/vale" ./cmd/vale
+          echo "$RUNNER_TEMP/bin" >> $GITHUB_PATH
+        working-directory: vale-src
+
+      - run: ./test.sh
