@@ -1,8 +1,9 @@
 #!/bin/sh
 #
-# Two checks. Each rule carries its cases in a `tests:` block, run in
-# isolation by `vale test`, which with `--coverage` also requires every rule
-# to fire in some case. Then one page is checked and compared to a golden
+# Two checks. Each rule has its cases in tests/, run in isolation by `vale
+# test`, which with `--coverage` also requires every rule to fire in some
+# case. The cases stay out of the rule files so that a Vale older than the
+# `tests:` key can still load the style. Then one page is checked and compared to a golden
 # file, and its rewrite in fixtures/clean/ is required to produce nothing:
 # the scores have to agree about which paragraph reads hard, and land on it.
 #
@@ -17,7 +18,7 @@ root=$(cd "$(dirname "$0")" && pwd)
 vale=${VALE:-vale}
 mkdir -p "$root/testdata"
 
-(cd "$root" && "$vale" test --coverage Readability) || status=1
+(cd "$root" && "$vale" test --coverage tests Readability) || status=1
 
 run() { # <fixture path, relative to root> -> alerts on stdout, sorted
 	(cd "$root" && "$vale" --output=line --no-global "$1" 2>&1 || true) |

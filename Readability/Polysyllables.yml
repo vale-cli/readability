@@ -36,21 +36,3 @@ script: |
     }
   }
 
-tests:
-  - name: fires
-    input: |
-      Notwithstanding the considerations, the committee decided.
-    want: |
-      1:1:Readability.Polysyllables:'Notwithstanding' has three or more syllables. It counts toward the SMOG and Gunning fog scores.
-      1:21:Readability.Polysyllables:'considerations' has three or more syllables. It counts toward the SMOG and Gunning fog scores.
-      1:41:Readability.Polysyllables:'committee' has three or more syllables. It counts toward the SMOG and Gunning fog scores.
-      1:51:Readability.Polysyllables:'decided' has three or more syllables. It counts toward the SMOG and Gunning fog scores.
-  - name: clean
-    input: |
-      The dog sat on the mat and looked at the door.
-    want: ""
-  - name: endings
-    about: "a silent e, a -ed, and an -es do not add a syllable: these are two"
-    input: |
-      They jumped and wished for houses and a table.
-    want: ""

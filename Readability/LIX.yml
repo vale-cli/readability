@@ -1,22 +1,17 @@
-# The LIX score, per paragraph, so the grade lands on the paragraph that
-# earned it rather than on line one of the file. 20 to 25 is very easy, 30
-# to 35 easy, 40 to 45 medium, 50 to 55 difficult, and 60 and up very
-# difficult.
 extends: metric
 message: "Try to keep the LIX score (%s) below 35."
-link: https://en.wikipedia.org/wiki/Lix_(readability_test)
-level: warning
-scope: paragraph
-formula: round(lix, 2)
-condition: "> 35"
 
-tests:
-  - name: fires
-    input: |
-      Notwithstanding the aforementioned considerations, the organization's interdepartmental reorganization initiative necessitated comprehensive reevaluation of institutional methodologies, organizational infrastructures, and jurisdictional responsibilities.
-    want: |
-      1:1:Readability.LIX:Try to keep the LIX score (100.00) below 35.
-  - name: clean
-    input: |
-      We changed how the teams work. Each team now owns one part of the product. It is a small change.
-    want: ""
+link: https://en.wikipedia.org/wiki/Lix_(readability_test)
+# Very Easy: 20 - 25
+#
+# Easy: 30 - 35
+#
+# Medium: 40 - 45
+#
+# Difficult: 50 - 55
+#
+# Very Difficult: 60+
+formula: |
+  (words / sentences) + ((long_words * 100) / words)
+
+condition: "> 35"

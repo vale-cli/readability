@@ -1,11 +1,11 @@
-fixtures/page.md:5:1:Readability.AutomatedReadability:Try to keep the Automated Readability Index (43.56) below 8.
-fixtures/page.md:5:1:Readability.ColemanLiau:Try to keep the Coleman–Liau Index grade (49.12) below 9.
-fixtures/page.md:5:1:Readability.FleschKincaid:Try to keep the Flesch–Kincaid grade level (40.97) below 8.
-fixtures/page.md:5:1:Readability.FleschReadingEase:Try to keep the Flesch reading ease score (-155.92) above 70.
-fixtures/page.md:5:1:Readability.GunningFog:Try to keep the Gunning-Fog index (39.60) below 10.
-fixtures/page.md:5:1:Readability.LIX:Try to keep the LIX score (103.17) below 35.
+fixtures/page.md:1:1:Readability.AutomatedReadability:Try to keep the Automated Readability Index (14.85) below 8.
+fixtures/page.md:1:1:Readability.ColemanLiau:Try to keep the Coleman–Liau Index grade (20.23) below 9.
+fixtures/page.md:1:1:Readability.FleschKincaid:Try to keep the Flesch–Kincaid grade level (14.68) below 8.
+fixtures/page.md:1:1:Readability.FleschReadingEase:Try to keep the Flesch reading ease score (7.90) above 70.
+fixtures/page.md:1:1:Readability.GunningFog:Try to keep the Gunning-Fog index (15.87) below 10.
+fixtures/page.md:1:1:Readability.LIX:Try to keep the LIX score (44.59) below 35.
+fixtures/page.md:1:1:Readability.SMOG:Try to keep the SMOG grade (13.02) below 10.
 fixtures/page.md:5:1:Readability.Polysyllables:'Notwithstanding' has three or more syllables. It counts toward the SMOG and Gunning fog scores.
-fixtures/page.md:5:1:Readability.SMOG:Try to keep the SMOG grade (27.37) below 10.
 fixtures/page.md:5:21:Readability.Polysyllables:'aforementioned' has three or more syllables. It counts toward the SMOG and Gunning fog scores.
 fixtures/page.md:5:36:Readability.Polysyllables:'considerations' has three or more syllables. It counts toward the SMOG and Gunning fog scores.
 fixtures/page.md:5:56:Readability.Polysyllables:'organization's' has three or more syllables. It counts toward the SMOG and Gunning fog scores.

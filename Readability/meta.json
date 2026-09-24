@@ -1,6 +1,6 @@
 {
   "feed": "https://github.com/vale-cli/readability/releases.atom",
-  "vale_version": ">=3.23.0",
+  "vale_version": ">=2.13.0",
   "license_files": [
     "LICENSE"
   ]

@@ -1,0 +1,108 @@
+# One firing case and one clean case per score, plus the polysyllables. The
+# cases live here rather than in the rules so that a Vale older than the
+# `tests:` key never reads them as fields it does not know.
+
+- name: AutomatedReadability fires
+  rule: ../Readability/AutomatedReadability.yml
+  input: |
+    Notwithstanding the aforementioned considerations, the organization's interdepartmental reorganization initiative necessitated comprehensive reevaluation of institutional methodologies, organizational infrastructures, and jurisdictional responsibilities.
+  want: |
+    1:1:Readability.AutomatedReadability:Try to keep the Automated Readability Index (42.73) below 8.
+- name: AutomatedReadability clean
+  rule: ../Readability/AutomatedReadability.yml
+  input: |
+    We changed how the teams work. Each team now owns one part of the product. It is a small change.
+  want: ""
+
+- name: ColemanLiau fires
+  rule: ../Readability/ColemanLiau.yml
+  input: |
+    Notwithstanding the aforementioned considerations, the organization's interdepartmental reorganization initiative necessitated comprehensive reevaluation of institutional methodologies, organizational infrastructures, and jurisdictional responsibilities.
+  want: |
+    1:1:Readability.ColemanLiau:Try to keep the Coleman–Liau Index grade (50.34) below 9.
+- name: ColemanLiau clean
+  rule: ../Readability/ColemanLiau.yml
+  input: |
+    We changed how the teams work. Each team now owns one part of the product. It is a small change.
+  want: ""
+
+- name: FleschKincaid fires
+  rule: ../Readability/FleschKincaid.yml
+  input: |
+    Notwithstanding the aforementioned considerations, the organization's interdepartmental reorganization initiative necessitated comprehensive reevaluation of institutional methodologies, organizational infrastructures, and jurisdictional responsibilities.
+  want: |
+    1:1:Readability.FleschKincaid:Try to keep the Flesch–Kincaid grade level (41.77) below 8.
+- name: FleschKincaid clean
+  rule: ../Readability/FleschKincaid.yml
+  input: |
+    We changed how the teams work. Each team now owns one part of the product. It is a small change.
+  want: ""
+
+- name: FleschReadingEase fires
+  rule: ../Readability/FleschReadingEase.yml
+  input: |
+    Notwithstanding the aforementioned considerations, the organization's interdepartmental reorganization initiative necessitated comprehensive reevaluation of institutional methodologies, organizational infrastructures, and jurisdictional responsibilities.
+  want: |
+    1:1:Readability.FleschReadingEase:Try to keep the Flesch reading ease score (-168.78) above 70.
+- name: FleschReadingEase clean
+  rule: ../Readability/FleschReadingEase.yml
+  input: |
+    We changed how the teams work. Each team now owns one part of the product. It is a small change.
+  want: ""
+
+- name: GunningFog fires
+  rule: ../Readability/GunningFog.yml
+  input: |
+    Notwithstanding the aforementioned considerations, the organization's interdepartmental reorganization initiative necessitated comprehensive reevaluation of institutional methodologies, organizational infrastructures, and jurisdictional responsibilities.
+  want: |
+    1:1:Readability.GunningFog:Try to keep the Gunning-Fog index (40.00) below 10.
+- name: GunningFog clean
+  rule: ../Readability/GunningFog.yml
+  input: |
+    We changed how the teams work. Each team now owns one part of the product. It is a small change.
+  want: ""
+
+- name: LIX fires
+  rule: ../Readability/LIX.yml
+  input: |
+    Notwithstanding the aforementioned considerations, the organization's interdepartmental reorganization initiative necessitated comprehensive reevaluation of institutional methodologies, organizational infrastructures, and jurisdictional responsibilities.
+  want: |
+    1:1:Readability.LIX:Try to keep the LIX score (100.00) below 35.
+- name: LIX clean
+  rule: ../Readability/LIX.yml
+  input: |
+    We changed how the teams work. Each team now owns one part of the product. It is a small change.
+  want: ""
+
+- name: SMOG fires
+  rule: ../Readability/SMOG.yml
+  input: |
+    Notwithstanding the aforementioned considerations, the organization's interdepartmental reorganization initiative necessitated comprehensive reevaluation of institutional methodologies, organizational infrastructures, and jurisdictional responsibilities.
+  want: |
+    1:1:Readability.SMOG:Try to keep the SMOG grade (25.98) below 10.
+- name: SMOG clean
+  rule: ../Readability/SMOG.yml
+  input: |
+    We changed how the teams work. Each team now owns one part of the product. It is a small change.
+  want: ""
+
+- name: Polysyllables fires
+  rule: ../Readability/Polysyllables.yml
+  input: |
+    Notwithstanding the considerations, the committee decided.
+  want: |
+    1:1:Readability.Polysyllables:'Notwithstanding' has three or more syllables. It counts toward the SMOG and Gunning fog scores.
+    1:21:Readability.Polysyllables:'considerations' has three or more syllables. It counts toward the SMOG and Gunning fog scores.
+    1:41:Readability.Polysyllables:'committee' has three or more syllables. It counts toward the SMOG and Gunning fog scores.
+    1:51:Readability.Polysyllables:'decided' has three or more syllables. It counts toward the SMOG and Gunning fog scores.
+- name: Polysyllables clean
+  rule: ../Readability/Polysyllables.yml
+  input: |
+    The dog sat on the mat and looked at the door.
+  want: ""
+- name: Polysyllables endings
+  about: "a silent e, a -ed, and an -es do not add a syllable: these are two"
+  rule: ../Readability/Polysyllables.yml
+  input: |
+    They jumped and wished for houses and a table.
+  want: ""
