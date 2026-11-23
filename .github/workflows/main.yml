@@ -23,19 +23,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # The package needs Vale 3.23.0, which is on the v3 branch and not yet
-      # released -- built from source until it is.
-      - uses: actions/checkout@v4
-        with:
-          repository: vale-cli/vale
-          ref: v3
-          path: vale-src
-      - uses: actions/setup-go@v5
-        with:
-          go-version-file: vale-src/go.mod
       - run: |
-          go build -o "$RUNNER_TEMP/bin/vale" ./cmd/vale
+          mkdir -p "$RUNNER_TEMP/bin"
+          curl -sSfL "https://github.com/vale-cli/vale/releases/download/v3.28.1/vale_3.28.1_Linux_64-bit.tar.gz" |
+            tar -xz -C "$RUNNER_TEMP/bin" vale
           echo "$RUNNER_TEMP/bin" >> $GITHUB_PATH
-        working-directory: vale-src
 
       - run: ./test.sh
